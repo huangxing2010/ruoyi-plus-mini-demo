@@ -2,8 +2,12 @@
 # Build Tools
 
 .gradle
+.hbuilderx/*
 /build/
 !gradle/wrapper/gradle-wrapper.jar
+
+ruoyi-ui-vue3/
+unpackage/
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
