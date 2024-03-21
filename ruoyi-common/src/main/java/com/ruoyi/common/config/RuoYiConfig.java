@@ -30,9 +30,17 @@ public class RuoYiConfig {
      */
     private String copyrightYear;
 
+    /** 上传路径 */
+    private static String profile;
+
     /**
      * 缓存懒加载
      */
     private boolean cacheLazy;
+
+    public static String getProfile()
+    {
+        return profile;
+    }
 
 }

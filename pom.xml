@@ -321,6 +321,19 @@
                 <version>${ruoyi-vue-plus.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-wechat</artifactId>
+                <version>${ruoyi-vue-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-action</artifactId>
+                <version>${ruoyi-vue-plus.version}</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
@@ -335,6 +348,8 @@
         <module>ruoyi-extend</module>
         <module>ruoyi-oss</module>
         <module>ruoyi-sms</module>
+        <module>ruoyi-wechat</module>
+        <module>ruoyi-action</module>
     </modules>
     <packaging>pom</packaging>
 

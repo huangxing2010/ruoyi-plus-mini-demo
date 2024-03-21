@@ -3,6 +3,45 @@
 
 - - -
 
+
+```agsl
+DROP TABLE IF EXISTS `sys_ac_nav`;
+CREATE TABLE `sys_ac_nav` (
+  `nav_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `nav_name` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '名称',
+  `nav_icon` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '图标',
+  `link_url` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '连接地址',
+  `url_param` int(3) DEFAULT '0' COMMENT '参数',
+  `nav_images` varchar(156) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '图片连接',
+  `status` char(1) COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '状态（0停用，1正常）',
+  `sort` int(5) DEFAULT '100' COMMENT '排序',
+  `create_by` varchar(64) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(64) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(255) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='导航表';
+```
+
+```agsl
+drop table if exists sys_ac_navbar;
+create table sys_ac_navbar (
+  nav_id               bigint(20)      not null auto_increment    comment '导航id',
+  nav_name             varchar(30)     default ''        comment '导航名称',
+  nav_icon             varchar(30)     default ''        comment '导航图标',
+  nav_url              varchar(126)    default ''        comment '连接地址',
+  thumbnail            varchar(126)    default ''        comment '缩略图',
+  nav_sort             int(3)          default 0         comment '排序',
+  nav_status           char(1)         default '0'       comment '状态（0正常 1停用）',
+  update_by            varchar(30)     default ''        comment '更新者',
+  update_time          datetime                          comment '更新日期',
+  create_by            varchar(30)     default ''        comment '创建者',
+  create_time          datetime                          comment '创建日期',
+  primary key (student_id)
+) engine=innodb auto_increment=1 comment = '导航信息表';
+```
+
 ## 版本状态说明
 
 由于 springboot 2.X 与 vue 2.X 官方均宣布停止维护, 故而 框架 4.X 版本 进入维护状态(只处理问题不更新功能)

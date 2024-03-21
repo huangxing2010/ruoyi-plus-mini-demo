@@ -17,15 +17,11 @@
 				<view class="loginType">
 					<view class="item">
 						<view class="icon"><u-icon size="60" name="weixin-fill" color="rgb(83,194,64)"></u-icon></view>
-						微信
+						微信一键登录
 					</view>
 				</view>
 			</button>
-			<!-- <view class="hint">
-				登录代表同意
-				<text class="link">开源字节用户协议、隐私政策，</text>
-				并授权使用您的账号信息（如昵称、头像、收获地址）以便您统一管理
-			</view> -->
+
 		</view>
 		<!-- #endif -->
 	</view>
@@ -34,110 +30,41 @@
 export default {
 	data() {
 		return {
-			// username: '',
-			// password: '',
-			username: '18720989281',
-			password: '123456',
+			user: ""
 		}
 	},
 	onReady() {
-		this.getArticleList()
 	},
-	// onLoad() {
-	// 	// 在页面中定义激励视频广告
-	// 	let videoAd = null
-	// 	// 在页面onLoad回调事件中创建激励视频广告实例
-	// 	if (wx.createRewardedVideoAd) {
-	// 	  videoAd = wx.createRewardedVideoAd({
-	// 	    adUnitId: 'adunit-8cd5789a01a51891'
-	// 	  })
-	// 	  videoAd.onLoad(() => {})
-	// 	  videoAd.onError((err) => {})
-	// 	  videoAd.onClose((res) => {})
-	// 	}
-	// 	// 用户触发广告后，显示激励视频广告
-	// 	if (videoAd) {
-	// 	  videoAd.show().catch(() => {
-	// 	    // 失败重试
-	// 	    videoAd.load()
-	// 	      .then(() => videoAd.show())
-	// 	      .catch(err => {
-	// 	        console.log('激励视频 广告显示失败')
-	// 	      })
-	// 	  })
-	// 	}
-	// },
+
 	methods: {
-		login() {
-			if(!this.$u.test.mobile(this.username)){
-				return this.$refs.uToast.show({
-					title: '手机号不正确',
-					type: 'warning',
-				})
-			}
-			if(!this.password){
-				return this.$refs.uToast.show({
-					title: '密码不能为空',
-					type: 'warning',
-				})
-			}
-			// 登录json参数，不同于表单参数
-			let url = "/api/thirdLogin";
-			this.$u.post(url,{
-				username: this.username,
-				password: this.password
-			}).then(data => {
-				// 登录成功初始化token与用户信息
-				this.$u.vuex('vuex_token', data.token);
-				this.$u.vuex('vuex_user', data.loginUser);
-				uni.switchTab({
-					url: '/pages/index/index'
-				})
-			});
-		},
-		//科普知识
-		getArticleList() {
-			console.log(33334)
-			let url = "/api/articelelist";
-			this.$u.get(url).then(res => {
-				console.log(33335,res)
-			})
-			/* let url = "/api/sys/articelelist";
-			this.$u.get(url).then(obj => {
-				console.log(33334,obj)
-			}) */
-		},
-		weChatLogin(e){
-			console.log(3333,e)
+		weChatLogin(e){			
 			let code= e.detail.code;
 			if(code){
 				uni.showLoading({title:"登录中....",mask:true})
 				let url = "/api/miniWechat/getPhoneNum?code="+code;
-				this.$u.get(url).then(res => {
-					console.log(4444,res)
-					let phoneNum = res.phoneNum
+				 this.$u.get(url).then(res => {
+					console.log(4222,res)
+					let phoneNum = res.data.phoneNum
 					let weChatUrl = "/api/weChatLogin";
 					this.$u.post(weChatUrl,{
 						username: phoneNum,
 						code: code
-					}).then(data => {
+					}).then(obj => {
+						console.log(333222,obj)
+						
 						uni.hideLoading();
 						// 登录成功初始化token与用户信息
-						this.$u.vuex('vuex_token', data.token);
-						this.$u.vuex('vuex_user', data.loginUser);
+						this.$u.vuex('vuex_token', obj.data.token);
+						this.$u.vuex('vuex_user', obj.data.loginUser);
 						uni.switchTab({
 							url: '/pages/index/index'
-						})
+						}) 
+						
 					});
 				});
 			}else{
 				this.$mytip.toast('登录失败')
-			}
-		},
-		reg(){
-			this.$u.route({
-				url: 'pages/login/account'
-			})
+			} 
 		}
 	}
 };

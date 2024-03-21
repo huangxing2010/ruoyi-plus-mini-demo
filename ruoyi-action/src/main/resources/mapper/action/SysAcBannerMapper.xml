@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.action.mapper.SysAcBannerMapper">
+
+    <resultMap type="com.ruoyi.action.domain.SysAcBanner" id="SysAcBannerResult">
+        <result property="bannerId" column="banner_id"/>
+        <result property="bannerName" column="banner_name"/>
+        <result property="bannerUrl" column="banner_url"/>
+        <result property="thumbnail" column="thumbnail"/>
+        <result property="bannerSort" column="banner_sort"/>
+        <result property="bannerType" column="banner_type"/>
+        <result property="bannerStatus" column="banner_status"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+
+</mapper>

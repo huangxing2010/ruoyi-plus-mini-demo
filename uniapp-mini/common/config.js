@@ -1,5 +1,5 @@
 // 全局配置文件
-let baseUrl = 'http://localhost:8080';
+let baseUrl = 'http://localhost:8068';
 let staticUrl = 'http://localhost:1024/dev-api/';
 // let baseUrl = 'https://sourcebyte.vip/';
 // let staticUrl = 'https://sourcebyte.vip';

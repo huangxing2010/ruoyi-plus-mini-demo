@@ -34,7 +34,7 @@ const store = new Vuex.Store({
 		// 加上vuex_前缀，是防止变量名冲突，也让人一目了然
 		vuex_user: lifeData.vuex_user ? lifeData.vuex_user : {},
 		vuex_token: lifeData.vuex_token ? lifeData.vuex_token : '',
-		vuex_city: lifeData.vuex_city ? lifeData.vuex_city : '',
+		// vuex_city: lifeData.vuex_city ? lifeData.vuex_city : '',
 		// 如果vuex_version无需保存到本地永久存储，无需lifeData.vuex_version方式
 		vuex_version: config.vuex_version,
 		vuex_demo: 'demo',

@@ -9,25 +9,22 @@
 			</u-cell-group>
 			<u-cell-group>
 				<u-cell-item title="昵称" :arrow="true" hover-class="none" @click="updateName">
-					{{vuex_user.user.nickName}}
+					{{nickName}}
 				</u-cell-item>
 			</u-cell-group>
 		</view>
-		
-		<u-modal v-model="showModel" @confirm="confirmName" ref="uModal" :async-close="true"
-		title="设置昵称">
+
+		<u-modal v-model="showModel" @confirm="confirmName" ref="uModal" :async-close="true" title="设置昵称">
 			<view class="slot-content">
-				<u-input v-model="nickName" type="text" :border="false" placeholder="请输入昵称"/>
+				<u-input v-model="nickName" type="text" :border="false" placeholder="请输入昵称" />
 			</view>
 		</u-modal>
-		
-		<!-- <view class="u-m-t-20">
-			<u-button type="primary" @click="subProfile">提交</u-button>
-		</view> -->
-		
+
+
+
 		<!-- 如果是微信登录小程序，则获取用户的昵称与头像 -->
-		<!-- #ifdef MP-WEIXIN -->  
-			<!-- <u-button type="default">使用微信头像与昵称</u-button> -->
+		<!-- #ifdef MP-WEIXIN -->
+		<!-- <u-button type="default">使用微信头像与昵称</u-button> -->
 		<!-- #endif -->
 	</view>
 </template>
@@ -37,39 +34,57 @@
 	export default {
 		data() {
 			return {
-				pic:uni.getStorageSync('lifeData').vuex_user.user.avatar.includes(config.staticUrl)?uni.getStorageSync('lifeData').vuex_user.user.avatar:config.staticUrl+uni.getStorageSync('lifeData').vuex_user.user.avatar,
-				nickName:null,
-				showModel:false,
+				// pic:uni.getStorageSync('lifeData').vuex_user.user.avatar.includes(config.staticUrl)?uni.getStorageSync('lifeData').vuex_user.user.avatar:config.staticUrl+uni.getStorageSync('lifeData').vuex_user.user.avatar,
+				userId: null,
+				nickName: null,
+				showModel: false,
+				pic: ''
 			}
 		},
+		onLoad() {
+			let lifeData = uni.getStorageSync('lifeData');
+			this.nickName = lifeData.vuex_user.nickName;
+			this.userId = lifeData.vuex_user.userId;
+			this.pic = lifeData.vuex_user.avatar;
+			// this.nickName = lifeData
+		},
 		methods: {
-			updateName(){
+			updateName() {
 				this.showModel = true;
 			},
 			confirmName() {
-				if(!this.nickName){
-					this.showModel = false;
+				if (!this.nickName) {
+					// this.showModel = false;
 					return this.$mytip.toast('请输入昵称')
+				}else{
+					let url = "api/updateProfile";
+					// let vuex_user = uni.getStorageSync('lifeData').vuex_user
+					this.$u.post(url, {
+						userId: this.userId,
+						nickName: this.nickName,
+					}).then(data => {
+						this.$mytip.toast('昵称修改成功，请重新登录')
+						// 登录成功修改token与用户信息
+						this.$u.vuex('vuex_token', '');
+						this.$u.vuex('vuex_user', {});
+						this.showModel = false;
+						setTimeout(() => {
+							return uni.reLaunch({
+								url: '../login/login'
+							})
+						}, 1000)
+					
+					});
 				}
-				let url = "api/profile/updateProfile";
-				let vuex_user = uni.getStorageSync('lifeData').vuex_user
-				let user = vuex_user.user
-				let userId = user.userId;
-				this.$u.put(url,{
-					userId:userId,
-					nickName:this.nickName,
-				}).then(data => {
-					// 关闭
-					user.nickName = this.nickName
-					this.$u.vuex('vuex_user', vuex_user);
-					this.showModel = false;
-					this.$mytip.toast('昵称修改成功')
-				});
+
+
+				
 			},
-			updateAvatar(){
+			updateAvatar() {
 				this.$u.route('/pages/profile/avatar')
+
 			},
-			subProfile(){
+			subProfile() {
 				// 1.更新vuex中的用户信息
 				this.$mytip.toast('修改成功')
 				// 2.页面跳转
@@ -77,42 +92,39 @@
 					url: '/pages/center/center'
 				})
 			},
-			getUserProfile(){
-				// 如果是微信登录小程序，则获取用户的昵称与头像
-				// #ifdef MP-WEIXIN
-					// 此处执行微信才执行
-				// #endif
-			    var that = this;
-			    uni.getUserProfile({
-			        desc: '获取您的微信信息以授权小程序',
-			        lang: 'zh_CN',
-			        success: UserProfileRes => {  
-			            console.log(UserProfileRes)
-			            uni.login({
-			                provider: 'weixin',
-			                success: function(loginRes) {
-			                    let avatarUrl = UserProfileRes.userInfo.avatarUrl; //用户头像
-			                    let nickName = UserProfileRes.userInfo.nickName; //用户微信名
-			                    let gender = UserProfileRes.userInfo.gender;//性别
-								console.log(avatarUrl);
-								// 去修改用户的昵称与头像
-			                },
-			                fail(err) {
-			                    console.log(err)
-			                }
-			            });
-			        },
-			        fail:err=>{
-			            console.log(err)
-			        }
-			    })
+			//根据token判断登录
+			isLogin() {
+				// 判断是否有token
+				let lifeData = uni.getStorageSync('lifeData');
+				let token = lifeData.vuex_token
+				if (!token) {
+					// 没有token 则跳转到登录
+					return uni.reLaunch({
+						url: '../login/login'
+					})
+				} else {
+					// 判断Token是否有效
+					let url = "/api/profile/isExpiration";
+					this.$u.get(url, {
+						token: token
+					}).then(obj => {
+						if (obj.data.start) {
+							// 没有token过期则跳转到登录
+							return uni.reLaunch({
+								url: '../login/login'
+							})
+						}
+					});
+				}
+
 			}
+
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.slot-content{
+	.slot-content {
 		padding: 40rpx;
 	}
 </style>

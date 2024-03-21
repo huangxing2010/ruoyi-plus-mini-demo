@@ -5,7 +5,7 @@
 		<view>
 			<u-cell-group>
 				<u-cell-item title="个人信息" @click="profile"></u-cell-item>
-				<u-cell-item title="修改密码" @click="changePassword"></u-cell-item>
+				<!-- <u-cell-item title="修改密码" @click="changePassword"></u-cell-item> -->
 			</u-cell-group>
 		</view>
 		

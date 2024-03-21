@@ -1,53 +1,27 @@
 <template>
 	<view class="wrap">
-		<u-swiper :list="list"></u-swiper>
+		<u-swiper :list="bannerList"></u-swiper>
 
 		<view class="banner">
 			<u-grid :col="3">
-				<u-grid-item>
-					<u-icon name="photo" :size="46"></u-icon>
-					<view class="grid-text">图片</view>
-				</u-grid-item>
-				<u-grid-item>
-					<u-icon name="lock" :size="46"></u-icon>
-					<view class="grid-text">锁头</view>
-				</u-grid-item>
-				<u-grid-item>
-					<u-icon name="hourglass" :size="46"></u-icon>
-					<view class="grid-text">沙漏</view>
-				</u-grid-item>
-
-				<u-grid-item>
-					<u-icon name="lock" :size="46"></u-icon>
-					<view class="grid-text">锁头</view>
-				</u-grid-item>
-				<u-grid-item>
-					<u-icon name="hourglass" :size="46"></u-icon>
-					<view class="grid-text">沙漏</view>
-				</u-grid-item>
-				<u-grid-item>
-					<u-icon name="photo" :size="46"></u-icon>
-					<view class="grid-text">图片</view>
+				<u-grid-item v-for="item in navbarList" @click="toLink(item.navUrl)">
+					<u-icon :name="item.navIcon" :size="80"></u-icon>
+					<view class="grid-text">{{item.navName}}</view>
 				</u-grid-item>
 			</u-grid>
 		</view>
 
+		<u-notice-bar mode="horizontal" :list="list" speed="80" bg-color="#dbf1e1"></u-notice-bar>
+
 		<u-card margin="12rpx">
 			<view class="" slot="head">
-				<u-section title="今日热门" sub-title="查看更多"></u-section>
+				<u-section title="今日热门" @click="toArticle" sub-title="查看更多"></u-section>
 			</view>
 			<view class="" slot="body">
-				<view class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
-					<view class="u-body-item-title u-line-2">瓶身描绘的牡丹一如你初妆，冉冉檀香透过窗心事我了然，宣纸上走笔至此搁一半</view>
-					<image
-						src="https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg"
-						mode="aspectFill"></image>
-				</view>
-				<view class="u-body-item u-flex u-row-between u-p-b-0">
-					<view class="u-body-item-title u-line-2">釉色渲染仕女图韵味被私藏，而你嫣然的一笑如含苞待放</view>
-					<image
-						src="https://img12.360buyimg.com/n7/jfs/t1/102191/19/9072/330688/5e0af7cfE17698872/c91c00d713bf729a.jpg"
-						mode="aspectFill"></image>
+				<view v-for="vo in articleList" @click="toConternt(vo.articleId)"
+					class="u-body-item u-flex u-border-bottom u-col-between u-p-t-0">
+					<view class="u-body-item-title u-line-2">{{vo.articleTitle}}</view>
+					<image :src="vo.thumbnail == '' ? thumbnail : vo.thumbnail " mode="aspectFill"></image>
 				</view>
 			</view>
 
@@ -59,22 +33,106 @@
 	export default {
 		data() {
 			return {
-				list: [{
-						image: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						title: '昨夜星辰昨夜风，画楼西畔桂堂东'
-					},
-					{
-						image: 'https://cdn.uviewui.com/uview/swiper/2.jpg',
-						title: '身无彩凤双飞翼，心有灵犀一点通'
-					},
-					{
-						image: 'https://cdn.uviewui.com/uview/swiper/3.jpg',
-						title: '谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳'
-					}
-				],
+				navbarList: [],
+				bannerList: [],
+				articleList: [],
+				thumbnail: '/static/img/thumbnail.jpg',
+				list: [
+					'寒雨连江夜入吴',
+					'平明送客楚山孤',
+					'洛阳亲友如相问',
+					'一片冰心在玉壶'
+				]
 			}
 		},
+		onReady() {
+			this.isLogin()
+			this.getNavbarList()
+			this.getBannerList()
+			this.getArticleList()
+		},
 		methods: {
+			//获取导航数据
+			getNavbarList() {
+				let url = "/api/miniWechat/getNav";
+				this.$u.get(url).then(res => {
+					this.navbarList = res.data;
+				})
+			},
+			//获取幻灯数据
+			getBannerList() {
+				let url = "/api/miniWechat/getBanner";
+				this.$u.get(url).then(res => {
+
+					let banner = []
+					let obj = res.data;
+					obj.forEach((item, index) => {
+						banner.push({
+							image: item.thumbnail,
+							title: item.bannerName
+						})
+					})
+					this.bannerList = banner;
+				})
+			},
+			//获取文章列表
+			getArticleList() {
+				let url = "/api/miniWechat/getArticleList";
+				let data = {
+					artType: '1'
+				}
+				this.$u.get(url, data).then(res => {
+					this.articleList = res.data
+				})
+			},
+			//导航点击跳转
+			toLink(url) {
+				// 无参数
+				this.$u.route(url);
+			},
+			//更多｜跳转文章列表页
+			toArticle() {
+				this.$u.route("pages/article/list");
+			},
+			//跳转文章内容页
+			toConternt(aid) {
+				this.$u.route({
+					url: "pages/article/content",
+					params: {
+						articleId: aid
+					}
+
+				});
+			},
+
+			//根据token判断登录
+			isLogin() {
+				// 判断是否有token
+				let lifeData = uni.getStorageSync('lifeData');
+				let token = lifeData.vuex_token
+				if (!token) {
+					// 没有token 则跳转到登录
+					return uni.reLaunch({
+						url: '../login/login'
+					})
+				} else {
+					// 判断Token是否有效
+					let url = "/api/profile/isExpiration";
+					this.$u.get(url, {
+						token: token
+					}).then(obj => {
+						if (obj.data.start) {
+							// 没有token过期则跳转到登录
+							return uni.reLaunch({
+								url: '../login/login'
+							})
+						}
+					});
+				}
+
+			}
+
+
 
 		}
 	}
@@ -88,8 +146,10 @@
 		margin-top: 4rpx;
 		color: $u-type-info;
 	}
-	
-	.banner{margin: 12rpx;}
+
+	.banner {
+		margin: 12rpx;
+	}
 
 	// 卡片样式
 	.u-card-wrap {

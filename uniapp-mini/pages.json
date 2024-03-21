@@ -76,20 +76,12 @@
             }
             
         },{
-            "path" : "pages/notice/notice",
-            "style" :                                                                                    
-            {
-				"navigationStyle": "custom" ,// 隐藏系统导航栏
-				"navigationBarTitleText": "通知公告"
-            }
-            
-        },{
-		    "path" : "pages/content/list",
+		    "path" : "pages/article/list",
 		    "style": {
-		    	"navigationBarTitleText": "科普列表"
+		    	"navigationBarTitleText": "列表"
 		    }
 		},{
-		    "path" : "pages/content/content",
+		    "path" : "pages/article/content",
 		    "style": {
 		    	"navigationBarTitleText": "内容"
 		    }
@@ -101,7 +93,7 @@
                 "navigationBarTitleText": "设置头像",
                 "enablePullDownRefresh": false
             }
-        }		
+        }
 		//以下不需要    
         
 

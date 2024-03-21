@@ -72,5 +72,16 @@ public interface Constants {
      */
     String TOKEN = "token";
 
+    //新增 于2023-11-3日
+    /**
+     * 微信获取手机号 redis key
+     */
+    String WX_PHONE_NUM_KEY = "wx_phone:";
+
+    /**
+     * 微信登录验证有效期（分钟）
+     */
+    Integer WX_PHONE_CODE_EXPIRATION = 5;
+
 }
 

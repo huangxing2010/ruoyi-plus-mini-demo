@@ -4,11 +4,11 @@
 		<view class="u-flex user-box u-p-l-30 u-p-r-20 u-p-t-30 u-p-b-30">
 			<view class="u-flex" @click="profile">
 				<view class="u-m-r-20">
-					<u-avatar :src="avatar" size="140"></u-avatar>
+					<u-avatar :src="vuex_user.avatar" size="140"></u-avatar>
 				</view>
 				<view class="u-flex-1">
-					<view class="u-font-18 u-p-b-20">{{vuex_user.user.userName}}</view>
-					<view class="u-font-14 u-tips-color">昵称:{{vuex_user.user.nickName}}</view>
+					<view class="u-font-18 u-p-b-20">{{vuex_user.userName}}</view>
+					<view class="u-font-14 u-tips-color">昵称:{{vuex_user.nickName}}</view>
 				</view>
 			</view>
 		</view>
@@ -17,13 +17,13 @@
 		<view class="u-m-t-20">
 			<u-cell-group>
 				<!-- <u-cell-item icon="integral" title="实名认证" @click="setting"></u-cell-item> -->
-				<u-cell-item icon="setting" title="个人中心" @click="setting"></u-cell-item>
+				<u-cell-item icon="setting" title="设置" @click="setting"></u-cell-item>
 			</u-cell-group>
 		</view>
 		
 		<view class="u-m-t-20">
 			<u-cell-group>
-				<u-cell-item icon="level" :arrow="false" title="技术支持" value="18720989281"  @click="callPhoneNumber"></u-cell-item>
+				<u-cell-item icon="level" :arrow="false" title="技术支持" value="15609712256"  @click="callPhoneNumber"></u-cell-item>
 				<u-cell-item icon="question-circle" title="常见问题" @click="problem"></u-cell-item>
 				<u-cell-item icon="star" title="关于我们" @click="aboutMe"></u-cell-item>
 			</u-cell-group>
@@ -36,7 +36,6 @@
 	export default {
 		data() {
 			return {
-				avatar:uni.getStorageSync('lifeData').vuex_user.user.avatar.includes(config.staticUrl)?uni.getStorageSync('lifeData').vuex_user.user.avatar:config.staticUrl+uni.getStorageSync('lifeData').vuex_user.user.avatar,
 				show:true
 			}
 		},
@@ -53,6 +52,7 @@
 		onShow(){
 			// 检查token
 			this.checkToken();
+			
 		},
 		methods: {
 			logout() {
@@ -70,7 +70,7 @@
 			//拨打固定电话
 			callPhoneNumber() {
 				uni.makePhoneCall({
-					phoneNumber: "18720989281",
+					phoneNumber: "15609712256",
 				});
 			},
 			problem(){
@@ -97,7 +97,7 @@
 					this.$u.get(url,{
 						token:token
 					}).then(obj => {
-						if(obj.data){
+						if(obj.data.start){
 							// 没有token过期则跳转到登录
 							return uni.reLaunch({
 								url:'../login/login'
@@ -117,7 +117,8 @@
 				}
 			},
 			updateAvatar(){
-				this.avatar = uni.getStorageSync('lifeData').vuex_user.user.avatar.includes(config.staticUrl)?uni.getStorageSync('lifeData').vuex_user.user.avatar:config.staticUrl+uni.getStorageSync('lifeData').vuex_user.user.avatar
+				// this.avatar = uni.getStorageSync('lifeData').vuex_user.avatar.includes(config.staticUrl)?uni.getStorageSync('lifeData').vuex_user.avatar:config.staticUrl+uni.getStorageSync('lifeData').vuex_user.avatar
+
 			},
 		}
 	}
