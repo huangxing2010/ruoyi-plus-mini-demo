@@ -8,6 +8,12 @@
 ## 功能介绍
 * 项目集成了微信授权登录，并做了小程序端导航管理、banner管理，直接在后台设置，即可在首页展示，另外做了文章分类、文章内容管理，以及小程序端用户登录查看数据的场景。适用于微信程序端用户登录查看数据的场景，减少免用户名、密码登录的步骤。
 * 源码全部开源，并配备了详细的视频文档，旨在满足小程序业务开发开箱即用的目的
+
+## 开源地址
+gitee：https://gitee.com/xnqysabout/ruoyi-plus-mini-demo
+
+github：https://github.com/huangxing2010/ruoyi-plus-mini-demo
+
 ## 后端启动配置
 1、修改数据库配置文件application-dev.yml
 ```agsl
