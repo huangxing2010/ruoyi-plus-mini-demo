@@ -25,7 +25,9 @@ wechat:
 ```
 
 # 小程序配置
-
+<p align="center">
+<img alt="开源版" src="https://github.com/huangxing2010/ruoyi-plus-mini-demo/blob/main/script/demo/web01.png?raw=true">
+</p>
 
 ## 后台前端启动
 ### 开发
@@ -44,7 +46,7 @@ npm install --registry=https://registry.npmmirror.com
 npm run dev
 ```
 
-浏览器访问 http://localhost:80
+浏览器访问 http://localhost:8068
 
 ### 发布
 
@@ -61,6 +63,14 @@ npm run build:prod
 
 ## 软件架构图
 
+<p align="center">
+	  <img alt="开源版" src="https://github.com/huangxing2010/ruoyi-plus-mini-demo/blob/main/script/demo/demo01.jpg?raw=true">
+	  <img alt="开源版" src="https://github.com/huangxing2010/ruoyi-plus-mini-demo/blob/main/script/demo/hd01.png?raw=true">
+	  <img alt="开源版" src="https://github.com/huangxing2010/ruoyi-plus-mini-demo/blob/main/script/demo/hd02.png?raw=true">
+	  <img alt="开源版" src="https://github.com/huangxing2010/ruoyi-plus-mini-demo/blob/main/script/demo/hd03.png?raw=true">
+	  <img alt="开源版" src="https://github.com/huangxing2010/ruoyi-plus-mini-demo/blob/main/script/demo/hd04.png?raw=true">
+	  <img alt="开源版" src="https://github.com/huangxing2010/ruoyi-plus-mini-demo/blob/main/script/demo/hd05.png?raw=true">
+</p>
 
 ## 贡献代码
 
