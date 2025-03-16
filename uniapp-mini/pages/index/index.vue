@@ -34,7 +34,13 @@
 		data() {
 			return {
 				navbarList: [],
-				bannerList: [],
+				bannerList: [{
+					image: '/static/img/index/swiper/swiper2.png',
+					title: '01'
+				},{
+					image: '/static/img/index/swiper/swiper.jpg',
+					title: '01'
+				}],
 				articleList: [],
 				thumbnail: '/static/img/thumbnail.jpg',
 				list: [
@@ -72,7 +78,8 @@
 							title: item.bannerName
 						})
 					})
-					this.bannerList = banner;
+					//无oss资源，暂时不调用图片数据
+					// this.bannerList = banner;
 				})
 			},
 			//获取文章列表
@@ -167,7 +174,7 @@
 		width: 120rpx;
 		flex: 0 0 120rpx;
 		height: 120rpx;
-		border-radius: 8rpx;
+		// border-radius: 8rpx;
 		margin-left: 12rpx;
 	}
 </style>

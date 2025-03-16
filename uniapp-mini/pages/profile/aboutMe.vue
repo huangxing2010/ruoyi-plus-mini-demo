@@ -5,7 +5,20 @@
 	<view class="titleZ text-center align-center">
 		<text class="text-bold" style="font-size: 28px;">关于我们</text>
 		<view class="contentZ">
-			<text class="text-xl">我们专注提供专业的软件产品和技术。为合作伙伴提供安全可靠的软件产品与解决方案，共同帮助终端用户实现业务创新、快速发展。</text>
+			<text class="text-xl">
+				青海青一色电子科技有限公司成立于2013年8月27日，注册资金200万，坐落于青海西宁市，是一家专业软件定制开发科研型公司，不限于小程序/APP开发、网站建设、应用业务系统、物联网开发等业务领域。以设计、研发、运维、开源于一体立足于互联网行业；<br><br>
+				
+			</text>
+			
+		
+		</view>
+		
+		<view class="contentZ">
+		
+			<text class="text-xl" style="margin-top: 30rpx;">
+				联系人：程序员星哥
+				电话：15609712256（微信同号）
+			</text>
 		</view>
 	</view>
   </view>
@@ -54,6 +67,7 @@
 		margin: 10rpx auto 0;
 		text-align: left;
 	}
+
   .about-bg {
     background-size: cover;
     width: 100vw;
@@ -100,8 +114,8 @@
     height: 100vh;
 	padding-top: 20%;
     color: #fff;
-    background: linear-gradient(-120deg, #F15BB5, #9A5CE5, #01BEFF, #00F5D4);
-    /* background: linear-gradient(-120deg, #0976ea, #c471f5, #f956b6, #ea7e0a); */
+    /* background: linear-gradient(-120deg, #F15BB5, #9A5CE5, #01BEFF, #00F5D4); */
+    background: linear-gradient(-120deg, #0976ea, #c471f5, #f956b6, #ea7e0a);
     background-size: 500% 500%;
     animation: gradientBG 15s ease infinite;
   }
