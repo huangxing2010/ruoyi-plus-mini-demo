@@ -16,6 +16,7 @@ github：https://github.com/huangxing2010/ruoyi-plus-mini-demo
 
 ## 后端启动配置
 1、修改数据库配置文件application-dev.yml
+> 数据导入文件的位置：ruoyi-plus-mini-demo/script/sql/ruoyi-plus-mini-demo.sql
 ```agsl
           url: jdbc:mysql://localhost:3306/ruoyi-plus-mini-demo?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true
           username: root
@@ -32,7 +33,7 @@ wechat:
     accessTokenKey: MINI-ACCESS-TOKEN-AUTH
 ```
 
-# 小程序配置
+## 小程序配置
 <p align="center">
 <img alt="开源版" src="https://github.com/huangxing2010/ruoyi-plus-mini-demo/blob/main/script/demo/web01.png?raw=true">
 </p>
@@ -84,7 +85,7 @@ npm run build:prod
 
 QQ群：219877624
 
-## 鸣谢
+## 特别鸣谢
 [RuoYi-Vue-Plus](https://gitee.com/dromara/RuoYi-Vue-Plus)
 [uview-ui](https://github.com/dcloudio/uview)
 
