@@ -80,9 +80,13 @@ npm run build:prod
 	  <img alt="开源版" src="https://github.com/huangxing2010/ruoyi-plus-mini-demo/blob/main/script/demo/hd05.png?raw=true">
 </p>
 
-## 贡献代码
+## 加入QQ交流群
+
+QQ群：219877624
+
+## 鸣谢
+[RuoYi-Vue-Plus](https://gitee.com/dromara/RuoYi-Vue-Plus)
+[uview-ui](https://github.com/dcloudio/uview)
 
 
 
-
-## 演示图例
